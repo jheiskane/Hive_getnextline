@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 22:36:26 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/07 21:49:37 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/08 10:19:39 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ t_line	*new_line(t_line *new, char buf[], t_var **var_s)
 	i = 0;
 	ft_bzero(buf, BUFF_SIZE + 1);
 	*var_s = (t_var *)malloc(sizeof(t_var));
-	(*var_s)->tmp = (char *)ft_memalloc(0);
+	(*var_s)->tmp = ft_strnew(0);
 	(*var_s)->b_read = 1;
 	if (new == NULL)
 	{
@@ -63,6 +63,8 @@ int	save_data(t_line **ptr, char *buf, t_var *s, char **line)
 	if (s->b_read > ++l_len)
 	{
 		tmp = (t_line *)ft_memalloc(sizeof(t_line));
+		if (!tmp)
+			return (-1);
 		tmp->s_data = ft_strsub((const char *)buf, l_len, saved_bytes);
 		tmp->s_data[saved_bytes - 1] = '\0';
 		tmp->l_saved = 1;
@@ -70,6 +72,7 @@ int	save_data(t_line **ptr, char *buf, t_var *s, char **line)
 		*ptr = tmp;
 	}
 	*line = ft_realloc(buf, s->tmp, l_len - 1);
+	free(s);
 	return (1);
 }
 
