@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 21:47:28 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/08 10:18:13 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/09 16:52:53 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ typedef struct k_line
 {
 	char			*tmp;
 	int				b_read;
+	int				i;
 }					t_var;
 int	get_next_line(const int fd, char **line);
 
