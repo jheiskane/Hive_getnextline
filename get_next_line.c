@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 22:36:26 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/08 10:19:39 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/09 15:07:49 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ t_line	*new_line(t_line *new, char buf[], t_var **var_s)
 {
 	int	i;
 
-	i = 0;
+	i = -1;
 	ft_bzero(buf, BUFF_SIZE + 1);
 	*var_s = (t_var *)malloc(sizeof(t_var));
 	(*var_s)->tmp = ft_strnew(0);
@@ -26,18 +26,12 @@ t_line	*new_line(t_line *new, char buf[], t_var **var_s)
 		new = (t_line *)malloc(sizeof(t_line));
 		new->s_data = ft_strnew(0);
 		new->l_saved = 0;
+		return (new);
 	}
-	else if (new->s_data)
-	{
-		while (new->s_data[i] != '\0')
-		{
-			buf[i] = new->s_data[i];
-			i++;
-			(*var_s)->b_read = i;
-		}
-		ft_strdel(&(new->s_data));
-	}
-	new->l_len = -1;
+	while (new->s_data[++i] != '\0')
+		buf[i] = new->s_data[i];
+	(*var_s)->b_read = i;
+	ft_strdel(&(new->s_data));
 	return (new);
 }
 
@@ -98,6 +92,7 @@ int	get_next_line(const int fd, char **line)
 	static t_line	*save;
 
 	save = new_line(save, &(*buf), &var_s);
+	save->l_len = -1;
 	while (var_s->b_read > 0 && save->l_len == -1 && fd >= 0 && line)
 	{
 		if (save->l_saved == 0)
