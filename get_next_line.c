@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 22:36:26 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/09 16:20:02 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/09 16:21:50 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_line	*new_line(t_line *new, char buf[], t_var **var_s)
 		new = (t_line *)malloc(sizeof(t_line));
 		new->s_data = ft_strnew(0);
 		new->l_saved = 0;
+		return (new);
 	}
 	else if (new->s_data)
 	{
