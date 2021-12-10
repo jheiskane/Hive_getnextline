@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 22:36:26 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/09 18:33:52 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/10 11:55:37 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	seek_alloc(char *str, char **calloc, int len, int *l_saved)
 {
 	int	i;
 
-	if (calloc != 0)
+	if (calloc != 0 && len == -1)
 	{
 		*calloc = ft_strnew(0);
 		if (!(*calloc))
@@ -50,7 +50,7 @@ t_line	*new_line(t_line *new, char buf[], t_var **var_s)
 		new = (t_line *)malloc(sizeof(t_line));
 		if (!(new))
 			return (NULL);
-		if (!(seek_alloc(0, &new->s_data, 0, 0)))
+		if (!(seek_alloc(0, &new->s_data, -1, 0)))
 			return (NULL);
 		new->l_saved = 0;
 	}
@@ -115,21 +115,18 @@ int	get_next_line(const int fd, char **line)
 	if (!save)
 		return (-1);
 	save->l_len = -1;
-	while (var_s->b_read > 0 && save->l_len == -1 && \
-	fd >= 0 && line && var_s->tmp)
+	while (var_s->b_read > 0 && save->l_len == -1)
 	{
-		if (var_s->b_read > 0 || save->l_saved == 1)
-		{
-			save->l_len = seek_alloc(buf, 0, var_s->b_read, &(save->l_saved));
-			if (save->l_len == -1)
-				var_s->tmp = ft_realloc(buf, var_s->tmp, var_s->b_read);
-			else if (save->l_len >= 0)
-				return (save_data(&save, buf, var_s, line));
-		}
-		var_s->b_read = read(fd, buf, BUFF_SIZE);
+		if (save->l_saved == 0 && fd > 0 && line)
+			var_s->b_read = read(fd, buf, BUFF_SIZE);
+		if (var_s->b_read < 0 || fd < 0 || !(line) || !(var_s->tmp))
+			return (-1);
+		save->l_len = seek_alloc(buf, 0, var_s->b_read, &(save->l_saved));
+		if (save->l_len == -1)
+			var_s->tmp = ft_realloc(buf, var_s->tmp, var_s->b_read);
+		else if (save->l_len >= 0)
+			return (save_data(&save, buf, var_s, line));
 	}
-	if (var_s->b_read < 0 || fd < 0 || !line || !(var_s->tmp))
-		return (-1);
 	*line = var_s->tmp;
 	return (!(buf[0] == '\0'));
 }
