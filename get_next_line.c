@@ -6,13 +6,13 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/29 22:36:26 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/13 15:31:02 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/13 16:08:39 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char	*put_line(char **str)
+static char	*put_line(char **str)
 {
 	size_t	i;
 	char	*tmp;
@@ -26,7 +26,7 @@ char	*put_line(char **str)
 	return (ft_strdup(tmp));
 }
 
-int	save_str(char **fd_str, char **line, int b_read)
+static int	save_str(char **fd_str, char **line, ssize_t b_read)
 {
 	char	*tmp;
 
@@ -46,7 +46,7 @@ int	save_str(char **fd_str, char **line, int b_read)
 	return (1);
 }
 
-int	calc_return(char **fd_str, int b_read, char **line)
+static int	calc_return(char **fd_str, ssize_t b_read, char **line)
 {
 	if (b_read < 0)
 	{
