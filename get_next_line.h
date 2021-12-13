@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 21:47:28 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/13 15:06:40 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:53:31 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 # include <stdlib.h>
 # include <fcntl.h>
 # include "./libft/includes/libft.h"
-# define BUFF_SIZE 10000
+# define BUFF_SIZE 100
 # define MAX_FD 12228
 
 typedef struct s_line
