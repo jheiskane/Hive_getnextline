@@ -6,7 +6,7 @@
 /*   By: jheiskan <jheiskan@student.hive.fi>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/07 21:47:28 by jheiskan          #+#    #+#             */
-/*   Updated: 2021/12/10 10:02:10 by jheiskan         ###   ########.fr       */
+/*   Updated: 2021/12/13 15:06:40 by jheiskan         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,21 +15,18 @@
 
 # include <stdlib.h>
 # include <fcntl.h>
-# include "./libft/libft.h"
-# define BUFF_SIZE 12
+# include "./libft/includes/libft.h"
+# define BUFF_SIZE 10000
+# define MAX_FD 12228
 
 typedef struct s_line
 {
 	char			*s_data;
 	int				l_len;
 	int				l_saved;
+	int				fd;
 }					t_line;
-typedef struct k_line
-{
-	char			*tmp;
-	int				b_read;
-	int				i;
-}					t_var;
+
 int	get_next_line(const int fd, char **line);
 
 #endif
